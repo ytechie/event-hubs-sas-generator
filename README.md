@@ -3,6 +3,8 @@ Event Hubs SAS Generator
 
 An MVC application for generating Event Hubs shared access signatures. Feel free to fork it and deploy to your own Azure site.
 
+[Check it out in production here.](http://eventhubssasgenerator.azurewebsites.net/)
+
 ![Screenshot](screenshot.png)
 
 # License
