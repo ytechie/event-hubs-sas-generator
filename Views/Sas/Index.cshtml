@@ -15,35 +15,35 @@
     <hr />
 
     <div class="form-group">
-        @Html.Label("Namespace", "Service Bus Namespace: ", new { @class = "col-md-3 control-label" })
+        @Html.Label("Namespace", "Service Namespace: ", new { @class = "col-md-3 control-label" })
         <div class="col-md-9">
             @Html.TextBox("Namespace","", new { @class = "form-control" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.Label("Path", "Path: ", new { @class = "col-md-3 control-label" })
+        @Html.Label("Path", "Serivce Path: ", new { @class = "col-md-3 control-label" })
         <div class="col-md-9">
             @Html.TextBox("Path", "", new { @class = "form-control" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.Label("Policy", "Existing Policy: ", new { @class = "col-md-3 control-label" })
+        @Html.Label("KeyName", "Key Name / Policy: ", new { @class = "col-md-3 control-label" })
         <div class="col-md-9">
-            @Html.TextBox("Policy", "", new { @class = "form-control" })
+            @Html.TextBox("KeyName", "", new { @class = "form-control" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.Label("Key", "Policy Secret Key: ", new { @class = "col-md-3 control-label" })
+        @Html.Label("Key", "Policy Key: ", new { @class = "col-md-3 control-label" })
         <div class="col-md-9">
             @Html.TextBox("Key", "", new { @class = "form-control" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.Label("Expiration", "Expiration (MM/DD/YY HH): ", new { @class = "col-md-3 control-label" })
+        @Html.Label("Expiration", "Expiration Date/Time: ", new { @class = "col-md-3 control-label" })
         <div class="col-md-9">
             @Html.TextBox("Expiration", "", new { @class = "form-control button-primary" })
         </div>

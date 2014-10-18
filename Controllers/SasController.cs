@@ -18,17 +18,17 @@ namespace event_hubs_sas_generator.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            var sasNamespace = collection["Namespace"];
-            var path = collection["Path"];
-            var policy = collection["Policy"];
+            var serviceNamespace = collection["Namespace"];
+            var servicePath = collection["Path"];
+            var keyName = collection["KeyName"];
             var key = collection["Key"];
             var expiration = collection["Expiration"];
 
             var parsedExpiration = DateTime.Parse(expiration);
             var ttl = parsedExpiration.Subtract(DateTime.UtcNow);
 
-            var serviceUri = ServiceBusEnvironment.CreateServiceUri("https", sasNamespace, path).ToString().Trim('/');
-            var sasToken = SharedAccessSignatureTokenProvider.GetSharedAccessSignature(policy, key, serviceUri, ttl);
+            var resource = ServiceBusEnvironment.CreateServiceUri("https", serviceNamespace, servicePath).ToString().Trim('/');
+            var sasToken = SharedAccessSignatureTokenProvider.GetSharedAccessSignature(keyName, key, resource, ttl);
             
             var encodedToken = HttpServerUtility.UrlTokenEncode(Encoding.ASCII.GetBytes(sasToken));
 
