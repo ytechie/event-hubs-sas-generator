@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Text;
+using System.Web;
 using System.Web.Mvc;
+using Microsoft.ServiceBus;
 
 namespace event_hubs_sas_generator.Controllers
 {
@@ -22,18 +25,21 @@ namespace event_hubs_sas_generator.Controllers
             var expiration = collection["Expiration"];
 
             var parsedExpiration = DateTime.Parse(expiration);
-            var lifespan = parsedExpiration.Subtract(DateTime.UtcNow);
+            var ttl = parsedExpiration.Subtract(DateTime.UtcNow);
 
-            //var serviceUri = ServiceBusEnvironment.CreateServiceUri("https", sasNamespace, path).ToString().Trim('/');
-            //var sasToken = SharedAccessSignatureTokenProvider.GetSharedAccessSignature(policy, key, serviceUri, lifespan);
-            var sasToken = "abc123";
+            var serviceUri = ServiceBusEnvironment.CreateServiceUri("https", sasNamespace, path).ToString().Trim('/');
+            var sasToken = SharedAccessSignatureTokenProvider.GetSharedAccessSignature(policy, key, serviceUri, ttl);
+            
+            var encodedToken = HttpServerUtility.UrlTokenEncode(Encoding.ASCII.GetBytes(sasToken));
 
-            return RedirectToAction("DisplaySas", new {id = sasToken});
+            return RedirectToAction("DisplaySas", new { id = encodedToken });
         }
 
         public ActionResult DisplaySas(string id)
         {
-            ViewData["sas"] = id;
+            var decodedToken = Encoding.ASCII.GetString(HttpServerUtility.UrlTokenDecode(id));
+
+            ViewData["sas"] = decodedToken;
             return View();
         }
 
